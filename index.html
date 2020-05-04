@@ -12,6 +12,11 @@
         <button id='paper'>Paper</button>
         <button id='scissors'>Scissors</button>
     </div>
+    <div>
+        <div>Wins:<span id='wins'></span></div>
+        <div>Ties:<span id='ties'></span></div>
+        <div>Loss's:<span id='loss-s'></span></div>
+    </div>
     
 
     <script>
@@ -22,6 +27,19 @@
         let win = 0;
         let loss = 0;
         let tie = 0;
+
+        const wins = document.querySelector('#wins');
+       
+        wins.textContent = win;
+
+        const ties = document.querySelector('#ties');
+       
+        ties.textContent = tie;
+
+        const losss = document.querySelector('#loss-s');
+       
+        losss.textContent = loss;
+        
         
         
 
@@ -129,6 +147,11 @@
             //console.log(choice);
             console.log(playRound());
             console.log(`Score: ${win} - ${loss} - ${tie}`);
+            //const wins = document.querySelector('#wins');
+       
+            wins.textContent = win;
+            ties.textContent = tie;
+            losss.textContent = loss;
             
         });
 
