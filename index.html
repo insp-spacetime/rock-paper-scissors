@@ -6,44 +6,66 @@
     <title>Document</title>
 </head>
 <body>
+
+    <div class='chocies'>
+        <button id='rock'>Rock</button>
+        <button id='paper'>Paper</button>
+        <button id='scissors'>Scissors</button>
+    </div>
+    
+
     <script>
+
+        let choice;
         const playerSelection = humanPlay();
         const computerSelection = computerPlay();
         let win = 0;
         let loss = 0;
         let tie = 0;
+        
+        
 
         function computerPlay() {
             
-            choice = Math.ceil(Math.random() * 3);
-            if(choice === 1) {
-                choice = "rock";
-            } else if(choice === 2) {
-                choice = "paper";
+            compChoice = Math.ceil(Math.random() * 3);
+            if(compChoice === 1) {
+                compChoice = "rock";
+            } else if(compChoice === 2) {
+                compChoice = "paper";
             } else {
-                choice = "scissors";
+                compChoice = "scissors";
             }
-            return choice;
+            //console.log(choice);
+            return compChoice;
         };
             
         function humanPlay() {
-             
-            choice = prompt("Rock, Paper or Scissors", "Rock");
+
             
-            choice = choice.toLowerCase();
+             
+            //choice = prompt("Rock, Paper or Scissors", "Rock");
+            
+            //choice = choice.toLowerCase();
+
+            //choice = chocies;
             
             if(choice === "rock" || choice === "paper" || choice === "scissors") {
-                 return choice;
+                //console.log(choice);
+                return choice;
             } else {
                 choice = "Not valid";
-                humanPlay();
+                //humanPlay();
             }
-        
+            //console.log(choice);
         };
 
         function playRound(playerSelection, computerSelection) {
             computerSelection = computerPlay();
             playerSelection = humanPlay();
+
+            console.log(computerSelection);
+            console.log(playerSelection);
+            //console.log(playRound());
             
             if(playerSelection === "rock" && computerSelection === "paper") {
                  loss++;
@@ -55,10 +77,10 @@
                  win++;
                 return "You win! paper covers rock"; 
             } else if(playerSelection === "paper" && computerSelection === "scissors") {
-                 loss--;
+                 loss++;
                  return "You lose! scissors cuts paper";
             } else if(playerSelection === "scissors" && computerSelection === "rock") {
-                 loss--;
+                 loss++;
                  return "You lose! rock crushes scissors";
             } else if(playerSelection === "scissors" && computerSelection === "paper") {
                  win++;
@@ -70,29 +92,48 @@
         };
 
 
-         function game() {
+        //  function game() {
             
-            console.log(playRound(playerSelection, computerSelection));
-            console.log("wins: " + win + " Loss's: " + loss + " Ties: " + tie);
-            console.log(playRound(playerSelection, computerSelection));
-            console.log("wins: " + win + " Loss's: " + loss +  " Ties: " + tie);
-            console.log(playRound(playerSelection, computerSelection));
-            console.log("wins: " + win + " Loss's: " + loss + " Ties: " + tie);
-            console.log(playRound(playerSelection, computerSelection));
-            console.log("wins: " + win + " Loss's: " + loss +  " Ties: " + tie);
-            console.log(playRound(playerSelection, computerSelection));
-            console.log("wins: " + win + " Loss's: " + loss + " Ties: " + tie);
-            if(win > loss) {
-                console.log(`Score: ${win} - ${loss} - ${tie} You Win!`);
-            } else if(loss > win) {
-                console.log(`Score: ${win} - ${loss} - ${tie} You Lose`);
-            } else {
-                console.log(`Score: ${win} - ${loss} - ${tie} You Tie`);
-            }           
-         };
+        //     console.log(playRound(playerSelection, computerSelection));
+        //     console.log("wins: " + win + " Loss's: " + loss + " Ties: " + tie);
+        //     console.log(playRound(playerSelection, computerSelection));
+        //     console.log("wins: " + win + " Loss's: " + loss +  " Ties: " + tie);
+        //     console.log(playRound(playerSelection, computerSelection));
+        //     console.log("wins: " + win + " Loss's: " + loss + " Ties: " + tie);
+        //     console.log(playRound(playerSelection, computerSelection));
+        //     console.log("wins: " + win + " Loss's: " + loss +  " Ties: " + tie);
+        //     console.log(playRound(playerSelection, computerSelection));
+        //     console.log("wins: " + win + " Loss's: " + loss + " Ties: " + tie);
+        //     if(win > loss) {
+        //         console.log(`Score: ${win} - ${loss} - ${tie} You Win!`);
+        //     } else if(loss > win) {
+        //         console.log(`Score: ${win} - ${loss} - ${tie} You Lose`);
+        //     } else {
+        //         console.log(`Score: ${win} - ${loss} - ${tie} You Tie`);
+        //     }           
+        //  };
 
-        game();
-         
+        //game();
+        //playRound();
+
+       
+
+        document.body.addEventListener('click', function(e) {
+            
+            //console.log(e);
+            //console.log(e.srcElement.innerText);
+            choice = e.srcElement.innerText;
+            choice = choice.toLowerCase();
+            if(choice !== 'rock' && choice !== 'paper' && choice !== 'scissors') return;
+            //choice = String(choice);
+            //console.log(choice);
+            console.log(playRound());
+            console.log(`Score: ${win} - ${loss} - ${tie}`);
+            
+        });
+
+        //console.log(choice);
+
 
     </script>
 </body>
