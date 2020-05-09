@@ -13,14 +13,24 @@
         <button id='scissors'>Scissors</button>
     </div>
     <div>
+        <div id='result'>Make your move</div>
         <div>Wins:<span id='wins'></span></div>
         <div>Ties:<span id='ties'></span></div>
         <div>Loss's:<span id='loss-s'></span></div>
+        <div id='final'></div>
     </div>
     
 
     <script>
 
+        let chociesContainer = document.querySelector('.chocies');
+        let resetBtn = document.createElement('button');
+        resetBtn.innerText = 'play again';
+        resetBtn.setAttribute('id', 'reset');
+        resetBtn.addEventListener('click', ()=> {
+            reset();
+        });
+        
         let choice;
         const playerSelection = humanPlay();
         const computerSelection = computerPlay();
@@ -28,17 +38,21 @@
         let loss = 0;
         let tie = 0;
 
-        const wins = document.querySelector('#wins');
-       
+        let wins = document.querySelector('#wins');
         wins.textContent = win;
 
-        const ties = document.querySelector('#ties');
-       
+        let ties = document.querySelector('#ties');
         ties.textContent = tie;
 
-        const losss = document.querySelector('#loss-s');
-       
+        let losss = document.querySelector('#loss-s');
         losss.textContent = loss;
+
+        let result = document.querySelector('#result');
+
+        let final = document.querySelector('#final');
+        
+
+
         
         
         
@@ -87,28 +101,49 @@
             
             if(playerSelection === "rock" && computerSelection === "paper") {
                  loss++;
-                 return "You lose! paper covers rock";
+                 message = "You lose! paper covers rock";
+                 
             } else if(playerSelection === "rock" && computerSelection === "scissors") {
                  win++;
-                 return "You win! rock crushes scissors";
+                 message = "You win! rock crushes scissors";
+                 
             } else if(playerSelection === "paper" && computerSelection === "rock") {
                  win++;
-                return "You win! paper covers rock"; 
+                 message = "You win! paper covers rock";
+                 
             } else if(playerSelection === "paper" && computerSelection === "scissors") {
                  loss++;
-                 return "You lose! scissors cuts paper";
+                 message = "You lose! scissors cuts paper";
+                 
             } else if(playerSelection === "scissors" && computerSelection === "rock") {
                  loss++;
-                 return "You lose! rock crushes scissors";
+                 message = "You lose! rock crushes scissors";
+                 
             } else if(playerSelection === "scissors" && computerSelection === "paper") {
                  win++;
-                 return "You win! scissors cuts paper";
+                 message ="You win! scissors cuts paper";
+                 
             } else {
                  tie++;
-                 return "You tied";
+                 message = "You tied";
+                 
             }
         };
 
+        function reset() {
+            
+            message = 'Make your move';
+            result.textContent = message;
+            win = 0;
+            wins.textContent = win;
+            loss = 0;
+            losss.textContent = loss;
+            tie = 0;
+            ties.textContent = tie;
+            final.textContent = '';
+            chociesContainer.removeChild(resetBtn);
+
+        }
 
         //  function game() {
             
@@ -138,20 +173,61 @@
 
         document.body.addEventListener('click', function(e) {
             
-            //console.log(e);
+            console.log(e);
             //console.log(e.srcElement.innerText);
             choice = e.srcElement.innerText;
             choice = choice.toLowerCase();
-            if(choice !== 'rock' && choice !== 'paper' && choice !== 'scissors') return;
+            if(choice === 'rock' || choice === 'paper' || choice == 'scissors') {
+                playRound();
+            }else{
+                return;
+            }
+            
+            //if(choice !== 'rock' && choice !== 'paper' && choice !== 'scissors') return;
             //choice = String(choice);
             //console.log(choice);
-            console.log(playRound());
+            //console.log(message);
+            // const message = document.querySelector('#message');
+            // const content = document.createElement('div');
+            // content.textContent = playRound();
+            // message.appendChild(content);
             console.log(`Score: ${win} - ${loss} - ${tie}`);
             //const wins = document.querySelector('#wins');
        
             wins.textContent = win;
             ties.textContent = tie;
             losss.textContent = loss;
+            result.textContent = message;
+
+
+            if(win + tie + loss === 5) {
+                if(win > loss) {
+                    console.log('You Win!');
+                    final.textContent = `You Win! Score: ${win} - ${loss} - ${tie}`;
+                    chociesContainer.appendChild(resetBtn);
+                    // message = 'Make your move';
+                    // result.textContent = message;
+                    // win = 0;
+                    // wins.textContent = win;
+                    // loss = 0;
+                    // losss.textContent = loss;
+                    // tie = 0;
+                    // ties.textContent = tie;
+                } else if(loss > win) {
+                    console.log('You Lose');
+                    final.textContent = (`You Lose. Score: ${win} - ${loss} - ${tie}`);
+                    chociesContainer.appendChild(resetBtn);
+
+                }else{
+                    console.log('Tie');
+                    final.textContent = (`It\'s a tie. Score: ${win} - ${loss} - ${tie}`);
+                    message = 'Make your move';
+                    chociesContainer.appendChild(resetBtn);
+                }
+                
+            }
+
+            
             
         });
 
